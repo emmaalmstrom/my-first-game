@@ -1,25 +1,21 @@
 x = 0
-y = 100
+y = 270
 
 
 function love.draw()
-    love.graphics.setColor(0, 1, 0)
-    love.graphics.circle('fill', z, y, 30)
+    love.graphics.setColor(0, 1, 0, 0.9)
+    love.graphics.rectangle('fill', 0, 300, 1000, 500)
+    love.graphics.setColor(0.5, 0, 0.8)
+    love.graphics.rectangle('fill', x, y, 30, 30)
 end
 
-function love.update(dt)
-    x = x + (dt * 8)
 
-    z = (10 * 1.5^x)
-    
-    if z > 1000 then
-        z = 0
-        x = 0
+
+function love.update()
+    if love.keyboard.isDown("right") then
+        x = x + 2
+    end
+    if love.keyboard.isDown("left") then
+        x = x - 2
     end
 end
-
--- function love.keypressed()
---    if key == 'spaces' then
---        green = green + 0.1
---    end
--- end
