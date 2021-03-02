@@ -1,10 +1,10 @@
 Emma Almström 
 
-## Boll-Bana
-# Instruktioner
+# Boll-Bana
+## Instruktioner
 Ta bollen genom hela banan med hjälp av piltangenterna utan att nudda väggarna. 
 
-# Saker att lägga till
+## Saker att lägga till
 - Mer komplicerad bana
 - Timer
 - Mer färger / snyggare
