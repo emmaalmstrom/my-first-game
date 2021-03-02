@@ -1,21 +1,56 @@
-x = 0
-y = 270
-
+x = 50
+y = 150
+hastiget = 4
+meddelande = "Go !"
 
 function love.draw()
-    love.graphics.setColor(0, 1, 0, 0.9)
-    love.graphics.rectangle('fill', 0, 300, 1000, 500)
-    love.graphics.setColor(0.5, 0, 0.8)
-    love.graphics.rectangle('fill', x, y, 30, 30)
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.rectangle("fill", 0, 200, 500, 800)
+    love.graphics.rectangle("fill", 0, 0, 800, 100)
+    love.graphics.rectangle("fill", 600, 100, 200, 700)
+    love.graphics.circle("fill", x, y, 30)
+    love.graphics.setColor(1, 0, 1)
+    love.graphics.setFont(love.graphics.newFont(60))
+    love.graphics.print(meddelande)
 end
 
-
-
-function love.update()
+function love.update(dt)
     if love.keyboard.isDown("right") then
-        x = x + 2
+        x = x + hastiget
     end
     if love.keyboard.isDown("left") then
-        x = x - 2
+        x = x - hastiget
+    end
+    if love.keyboard.isDown("down") then
+        y = y + hastiget
+    end
+    if love.keyboard.isDown("up") then
+        y = y - hastiget
+    end
+    if x > -30 and x < 530 then
+        if y > 170 and y < 1030 then
+            x = 50
+            y = 150
+            love.window.showMessageBox(":(", "You Lost !!!", "info" )
+        end
+    end
+    if x > -30 and x < 830 then
+        if y > -30 and y < 130 then
+            x = 50
+            y = 150
+            love.window.showMessageBox(":(", "You Lost !!!", "info" )
+        end
+    end
+    if x > 570 and x < 830 then
+        if y > 70 and y < 830 then
+            x = 50
+            y = 150
+            love.window.showMessageBox(":(", "You Lost !!!", "info" )
+        end
+    end
+    if y > 570 then
+        x = 50
+        y = 150
+        love.window.showMessageBox(":)", "Congrats, you Won !!!", "info" )
     end
 end
