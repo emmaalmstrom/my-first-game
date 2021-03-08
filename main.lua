@@ -1,7 +1,7 @@
-x = 50
-y = 150
-hastiget = 4
-meddelande = "Go !"
+local x = 50
+local y = 150
+local speed = 4
+local message = "Go !"
 
 function love.draw()
     love.graphics.setColor(1, 1, 1)
@@ -11,21 +11,21 @@ function love.draw()
     love.graphics.circle("fill", x, y, 30)
     love.graphics.setColor(1, 0, 1)
     love.graphics.setFont(love.graphics.newFont(60))
-    love.graphics.print(meddelande)
+    love.graphics.print(message)
 end
 
 function love.update(dt)
     if love.keyboard.isDown("right") then
-        x = x + hastiget
+        x = x + speed
     end
     if love.keyboard.isDown("left") then
-        x = x - hastiget
+        x = x - speed
     end
     if love.keyboard.isDown("down") then
-        y = y + hastiget
+        y = y + speed
     end
     if love.keyboard.isDown("up") then
-        y = y - hastiget
+        y = y - speed
     end
     if x > -30 and x < 530 then
         if y > 170 and y < 1030 then
