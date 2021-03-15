@@ -1,56 +1,65 @@
-local x = 50
-local y = 150
-local speed = 4
-local message = "Go !"
-
+function love.load()
+    ballX = 150
+    ballY = 250
+    speed = 4
+    message = "Go !"
+end
+  
 function love.draw()
     love.graphics.setColor(1, 1, 1)
-    love.graphics.rectangle("fill", 0, 200, 500, 800)
-    love.graphics.rectangle("fill", 0, 0, 800, 100)
-    love.graphics.rectangle("fill", 600, 100, 200, 700)
-    love.graphics.circle("fill", x, y, 30)
+    love.graphics.circle("fill", ballX - 100, ballY - 100, 30)
     love.graphics.setColor(1, 0, 1)
     love.graphics.setFont(love.graphics.newFont(60))
     love.graphics.print(message)
+
+    for x = 1, #grid do
+        for y = 1, #grid[x] do
+            if grid[x][y] == 1 then
+                love.graphics.rectangle("fill", 100 * (x - 1), 100 * (y - 1), 100, 100)
+            end
+        end
+    end
 end
+
+grid = {
+    {1, 0, 0, 0, 0},
+    {0, 1, 0, 0, 0},
+    {0, 0, 1, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0}
+}
+
+
 
 function love.update(dt)
     if love.keyboard.isDown("right") then
-        x = x + speed
+        ballX = ballX + speed
     end
     if love.keyboard.isDown("left") then
-        x = x - speed
+        ballX = ballX - speed
     end
     if love.keyboard.isDown("down") then
-        y = y + speed
+    ballY = ballY + speed
     end
     if love.keyboard.isDown("up") then
-        y = y - speed
+        ballY = ballY - speed
     end
-    if x > -30 and x < 530 then
-        if y > 170 and y < 1030 then
-            x = 50
-            y = 150
-            love.window.showMessageBox(":(", "You Lost !!!", "info" )
-        end
-    end
-    if x > -30 and x < 830 then
-        if y > -30 and y < 130 then
-            x = 50
-            y = 150
-            love.window.showMessageBox(":(", "You Lost !!!", "info" )
-        end
-    end
-    if x > 570 and x < 830 then
-        if y > 70 and y < 830 then
-            x = 50
-            y = 150
-            love.window.showMessageBox(":(", "You Lost !!!", "info" )
-        end
-    end
-    if y > 570 then
-        x = 50
-        y = 150
+    
+    print(ballX, ballY)
+    if grid[math.floor((ballY + 30)/100)][math.floor((ballX )/100)] == 1 then
         love.window.showMessageBox(":)", "Congrats, you Won !!!", "info" )
+        love.load()
+    end
+    if grid[math.floor((ballY - 30)/100)][math.floor((ballX)/100)] == 1 then
+        love.window.showMessageBox(":)", "Congrats, you Won !!!", "info" )
+        love.load()
+    end
+    if grid[math.floor((ballY)/100)][math.floor((ballX + 30)/100)] == 1 then
+        love.window.showMessageBox(":)", "Congrats, you Won !!!", "info" )
+        love.load()
+    end
+    if grid[math.floor((ballY)/100)][math.floor((ballX - 30)/100)] == 1 then
+        love.window.showMessageBox(":)", "Congrats, you Won !!!", "info" )
+        love.load()
     end
 end
