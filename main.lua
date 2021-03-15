@@ -1,34 +1,47 @@
+function collision(centerX, centerY, radius, g)
+    if g[math.floor((centerY)/100)][math.floor((centerX)/100)] == 1 then
+        love.window.showMessageBox(":)", "Congrats, you Won !!!", "info" )
+        love.load()
+    end
+end
+
 function love.load()
     ballX = 150
     ballY = 250
+    ballRadius = 30
     speed = 4
     message = "Go !"
+    
+    grid = {
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+        {1, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0}
+    }
+    circlePoints = {
+        {-30, 0},
+        {30, 0},
+        {0, -30},
+        {0, 30}
+    }
 end
   
 function love.draw()
     love.graphics.setColor(1, 1, 1)
-    love.graphics.circle("fill", ballX - 100, ballY - 100, 30)
+    love.graphics.circle("fill", ballX - 100, ballY - 100, ballRadius)
     love.graphics.setColor(1, 0, 1)
     love.graphics.setFont(love.graphics.newFont(60))
     love.graphics.print(message)
 
-    for x = 1, #grid do
-        for y = 1, #grid[x] do
-            if grid[x][y] == 1 then
+    for y = 1, #grid do
+        for x = 1, #grid[y] do
+            if grid[y][x] == 1 then
                 love.graphics.rectangle("fill", 100 * (x - 1), 100 * (y - 1), 100, 100)
             end
         end
     end
 end
-
-grid = {
-    {1, 0, 0, 0, 0},
-    {0, 1, 0, 0, 0},
-    {0, 0, 1, 0, 0},
-    {0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0}
-}
-
 
 
 function love.update(dt)
@@ -46,20 +59,9 @@ function love.update(dt)
     end
     
     print(ballX, ballY)
-    if grid[math.floor((ballY + 30)/100)][math.floor((ballX )/100)] == 1 then
-        love.window.showMessageBox(":)", "Congrats, you Won !!!", "info" )
-        love.load()
-    end
-    if grid[math.floor((ballY - 30)/100)][math.floor((ballX)/100)] == 1 then
-        love.window.showMessageBox(":)", "Congrats, you Won !!!", "info" )
-        love.load()
-    end
-    if grid[math.floor((ballY)/100)][math.floor((ballX + 30)/100)] == 1 then
-        love.window.showMessageBox(":)", "Congrats, you Won !!!", "info" )
-        love.load()
-    end
-    if grid[math.floor((ballY)/100)][math.floor((ballX - 30)/100)] == 1 then
-        love.window.showMessageBox(":)", "Congrats, you Won !!!", "info" )
-        love.load()
-    end
+    
+    collision(ballX - 30, ballY, ballRadius, grid)
+    collision(ballX + 30, ballY, ballRadius, grid)
+    collision(ballX, ballY - 30, ballRadius, grid)
+    collision(ballX, ballY + 30, ballRadius, grid)
 end
