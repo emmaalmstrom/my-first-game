@@ -1,6 +1,6 @@
 function collision(centerX, centerY, radius, g)
     if g[math.floor((centerY)/100)][math.floor((centerX)/100)] == 1 then
-        love.window.showMessageBox(":)", "Congrats, you Won !!!", "info" )
+        love.window.showMessageBox(":(", "You lost !!!", "info" )
         love.load()
     end
 end
@@ -13,11 +13,12 @@ function love.load()
     message = "Go !"
     
     grid = {
-        {0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0},
-        {1, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0}
+        {1, 1, 1, 1, 1, 1, 1, 1},
+        {0, 0, 1, 1, 1, 0, 0, 0},
+        {1, 0, 0, 1, 0, 0, 1, 1},
+        {1, 1, 0, 1, 0, 1, 1, 1},
+        {1, 1, 0, 0, 0, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1}
     }
     circlePoints = {
         {-30, 0},
