@@ -1,5 +1,5 @@
-function collision(centerX, centerY, radius, g)
-    if g[math.floor((centerY)/100)][math.floor((centerX)/100)] == 1 then
+function collision(centerX, centerY, radius, map)
+    if map[math.floor((centerY)/100)][math.floor((centerX)/100)] == 1 then
         love.window.showMessageBox(":(", "You lost !!!", "info" )
         love.load()
     end
@@ -58,11 +58,8 @@ function love.update(dt)
     if love.keyboard.isDown("up") then
         ballY = ballY - speed
     end
-    
-    print(ballX, ballY)
-    
-    collision(ballX - 30, ballY, ballRadius, grid)
-    collision(ballX + 30, ballY, ballRadius, grid)
-    collision(ballX, ballY - 30, ballRadius, grid)
-    collision(ballX, ballY + 30, ballRadius, grid)
+
+    for index, value in ipairs(circlePoints) do
+        collision(ballX + circlePoints[index][1], ballY + circlePoints[index][2], ballRadius, grid)
+    end
 end
