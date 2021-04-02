@@ -1,8 +1,9 @@
-function collision(centerX, centerY, radius, map)
+function collision(centerX, centerY, map)
     if map[math.floor((centerY)/100)][math.floor((centerX)/100)] == 1 then
-        love.window.showMessageBox(":(", "You lost !!!", "info" )
+        --love.window.showMessageBox(":(", "You lost !!!", "info" )
         wallTouched = wallTouched + 1
-        love.load()
+        --ballX = 150
+        --ballY = 250
     end
 end
 
@@ -13,6 +14,7 @@ function love.load()
     speed = 4
     message = "Go !"
     wallTouched = 0
+    start = love.timer.getTime()
     
     grid = {
         {1, 1, 1, 1, 1, 1, 1, 1},
@@ -54,8 +56,7 @@ function love.draw()
     end
     love.graphics.setColor(1, 1, 1)
     love.graphics.setFont(love.graphics.newFont(30))
-    -- love.graphics.print("You have touched the wall " .. wallTouched .. " times")
-    -- love.graphics.print(math.floor(time))
+    love.graphics.print("You have touched the wall " .. wallTouched .. " times," .. math.floor(result) .. "s")
 end
 
 
@@ -67,20 +68,19 @@ function love.update(dt)
         ballX = ballX - speed
     end
     if love.keyboard.isDown("down") then
-    ballY = ballY + speed
+        ballY = ballY + speed
     end
     if love.keyboard.isDown("up") then
         ballY = ballY - speed
     end
     -- kallar på collision så många gånger som circlePoints är
     for index, value in ipairs(circlePoints) do
-        collision(ballX + circlePoints[index][1], ballY + circlePoints[index][2], ballRadius, grid)
+        collision(ballX + circlePoints[index][1], ballY + circlePoints[index][2], grid)
     end
     -- vinst
-    local time = love.timer.step()
+    result = love.timer.getTime() - start
     if ballX > love.graphics.getWidth() + 70 then
-        love.window.showMessageBox(":)", "You won! It took you " .. math.floor(time) .. " seonds", "info")
-        ballY = 250
-        ballX = 150
+        love.window.showMessageBox(":)", "You won! It took you " .. math.floor(result) .. " seonds", "info")
+        love.load()
     end
 end
