@@ -25,11 +25,11 @@ function love.load()
     
     grid = {
         {1, 1, 1, 1, 1, 1, 1, 1},
-        {0, 0, 1, 1, 1, 0, 0, 0},
-        {1, 0, 1, 0, 0, 0, 1, 1},
-        {0, 0, 1, 0, 1, 1, 1, 1},
-        {0, 1, 1, 0, 1, 1, 1, 1},
-        {0, 0, 0, 0, 1, 1, 1, 1}
+        {0, 0, 0, 1, 1, 0, 0, 0},
+        {1, 1, 0, 0, 0, 0, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1}
     }
 
     circleEdge = {}
@@ -74,7 +74,7 @@ function love.draw()
     end
     love.graphics.setColor(1, 1, 1)
     love.graphics.setFont(love.graphics.newFont(30))
-    love.graphics.print("Walltouchcountdown: " .. wallTouched .. "      Time: ".. math.floor(result) .. "s")
+    love.graphics.print("Don't touch the wall " .. wallTouched .. " times!  " .. math.floor(result) .. "s")
 end
 
 
@@ -97,10 +97,7 @@ function love.update(dt)
     end
     -- calls the collision-function for every table in my 'circlePoints'- table
     for index, value in ipairs(circleEdge) do
-        has_colided = collision(ballX + circleEdge[index][1], ballY + circleEdge[index][2], grid)
-        if has_colided then
-            
-        end
+        collision(ballX + circleEdge[index][1], ballY + circleEdge[index][2], grid)
     end
     -- victory
     -- set a variable that describes delta between the time right now and the time the game started
@@ -115,51 +112,16 @@ function love.update(dt)
     -- if the ball in on a 1 on the gridsystem and the ball moves in a specific direction
     -- then the movment is nullified
     if grid[math.floor((ballY)/100)][math.floor((ballX + 29)/100)] == 1 and movingright == true then
-        ballX = ballX - speed
+        ballX = ballX - 4
     end
-
     if grid[math.floor((ballY)/100)][math.floor((ballX - 29)/100)] == 1 and movingleft == true then
-        ballX = ballX + speed
+        ballX = ballX + 4
     end
-
     if grid[math.floor((ballY - 29)/100)][math.floor((ballX)/100)] == 1 and movingup == true then
-        ballY = ballY + speed
+        ballY = ballY + 4
     end
-
     if grid[math.floor((ballY + 29)/100)][math.floor((ballX)/100)] == 1 and movingdown == true then
-        ballY = ballY - speed
-    end
-
-    if grid[math.floor((ballY + 29)/100)][math.floor((ballX)/100)] == 1 and movingdown == true then
-        ballY = ballY - speed
-    end
-
-    if grid[math.floor((ballY - 21)/100)][math.floor((ballX + 21)/100)] == 1 and movingup == true then
-        ballY = ballY + speed
-    end
-    if grid[math.floor((ballY - 21)/100)][math.floor((ballX + 21)/100)] == 1 and movingright == true then
-        ballX = ballX - speed
-    end
-
-    if grid[math.floor((ballY - 21)/100)][math.floor((ballX - 21)/100)] == 1 and movingup == true then
-        ballY = ballY + speed
-    end
-    if grid[math.floor((ballY - 21)/100)][math.floor((ballX - 21)/100)] == 1 and movingleft == true then
-        ballX = ballX + speed
-    end
-
-    if grid[math.floor((ballY + 21)/100)][math.floor((ballX + 21)/100)] == 1 and movingdown == true then
-        ballY = ballY - speed
-    end
-    if grid[math.floor((ballY + 21)/100)][math.floor((ballX + 21)/100)] == 1 and movingright == true then
-        ballX = ballX - speed
-    end
-
-    if grid[math.floor((ballY + 21)/100)][math.floor((ballX - 21)/100)] == 1 and movingdown == true then
-        ballY = ballY - speed
-    end
-    if grid[math.floor((ballY + 21)/100)][math.floor((ballX - 21)/100)] == 1 and movingleft == true then
-        ballX = ballX + speed
+        ballY = ballY - 4
     end
 
     if wallTouched <= -1 then
@@ -168,11 +130,6 @@ function love.update(dt)
     end
     -- print(bestTime)
     if ballX <= 129 and movingleft == true then
-        ballX = ballX + speed
-        wallTouched = wallTouched - 1
-    end
-    if ballY > love.graphics.getHeight() + 69 then
-        ballY = ballY - speed
-        wallTouched = wallTouched - 1
+        ballX = ballX + 5
     end
 end
