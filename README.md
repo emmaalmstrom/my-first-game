@@ -2,4 +2,4 @@
 
 ## The Maze
 ### Instructions
-Take the ball through the maze with the arrow-keys without touching the wall
+Take the ball through the maze with the arrow-keys as fast as possible. If your walltouchcountdown goes to 0, you lose. 

@@ -14,7 +14,7 @@ function love.load()
     ballRadius = 30
     speed = 4
     message = "Go !"
-    wallTouched = 1000
+    wallTouched = 100
     start = love.timer.getTime()
     movingright = false
     movingleft = false
@@ -25,11 +25,11 @@ function love.load()
     
     grid = {
         {1, 1, 1, 1, 1, 1, 1, 1},
-        {0, 0, 1, 1, 1, 0, 0, 0},
-        {1, 0, 1, 0, 0, 0, 1, 1},
-        {0, 0, 1, 0, 1, 1, 1, 1},
-        {0, 1, 1, 0, 1, 1, 1, 1},
-        {0, 0, 0, 0, 1, 1, 1, 1}
+        {0, 0, 1, 0, 0, 0, 0, 1},
+        {1, 0, 1, 0, 1, 1, 0, 1},
+        {0, 0, 1, 0, 1, 0, 0, 1},
+        {0, 1, 1, 0, 1, 0, 1, 1},
+        {0, 0, 0, 0, 1, 0, 0, 0}
     }
 
     circleEdge = {}
@@ -98,10 +98,8 @@ function love.update(dt)
     -- calls the collision-function for every table in my 'circlePoints'- table
     for index, value in ipairs(circleEdge) do
         has_colided = collision(ballX + circleEdge[index][1], ballY + circleEdge[index][2], grid)
-        if has_colided then
-            
-        end
     end
+    
     -- victory
     -- set a variable that describes delta between the time right now and the time the game started
     result = love.timer.getTime() - start
@@ -118,11 +116,11 @@ function love.update(dt)
         ballX = ballX - speed
     end
 
-    if grid[math.floor((ballY)/100)][math.floor((ballX - 29)/100)] == 1 and movingleft == true then
+    if grid[math.floor((ballY)/100)][math.floor((ballX - 30)/100)] == 1 and movingleft == true then
         ballX = ballX + speed
     end
 
-    if grid[math.floor((ballY - 29)/100)][math.floor((ballX)/100)] == 1 and movingup == true then
+    if grid[math.floor((ballY - 30)/100)][math.floor((ballX)/100)] == 1 and movingup == true then
         ballY = ballY + speed
     end
 
